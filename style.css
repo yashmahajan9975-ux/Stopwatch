@@ -1,0 +1,191 @@
+/* --- Root Variables for Colors and Fonts --- */
+:root {
+    --bg-color: #1e1e1e;
+    --card-color: #2a2a2a;
+    --font-color: #e0e0e0;
+    --font-color-muted: #888;
+    --accent-color: #00b894;
+    --accent-color-hover: #00a383;
+    --border-color: #444;
+
+    --font-primary: 'Montserrat', sans-serif;
+    --font-timer: 'Orbitron', sans-serif;
+}
+
+/* --- General Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* --- Main Stopwatch Card --- */
+.stopwatch-card {
+    background-color: var(--card-color);
+    width: 100%;
+    max-width: 400px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* --- Timer Section (Top Part) --- */
+.timer-section {
+    padding: 30px 25px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.timer-display {
+    font-family: var(--font-timer);
+    font-size: 3.8rem;
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: var(--font-color);
+    transition: color 0.3s ease;
+}
+
+/* Make milliseconds smaller and muted */
+#ms-display {
+    font-size: 2.5rem;
+    color: var(--font-color-muted);
+}
+
+/* Change timer color to accent when running */
+.stopwatch-card.is-running .timer-display {
+    color: var(--accent-color);
+}
+.stopwatch-card.is-running #ms-display {
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+/* Button Styles */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stopwatch-button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 0;
+    width: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.stopwatch-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.start-button {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+.start-button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.reset-button, .lap-button {
+    background-color: #444;
+    color: var(--font-color);
+}
+.reset-button:hover, .lap-button:hover {
+    background-color: #555;
+}
+
+/* --- Button State Visibility --- */
+/* Hide Reset/Lap when stopped */
+.stopwatch-card:not(.is-running):not(.is-paused) .reset-button,
+.stopwatch-card:not(.is-running):not(.is-paused) .lap-button {
+    opacity: 0.5;
+    pointer-events: none;
+}
+/* Hide Lap when paused */
+.stopwatch-card.is-paused .lap-button {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* --- Laps Section (Bottom Part) --- */
+.laps-section {
+    padding: 20px 25px;
+}
+.laps-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.laps-header h3 {
+    font-weight: 600;
+    color: var(--font-color-muted);
+}
+.export-button {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--font-color-muted);
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+.export-button:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+}
+
+.laps-list {
+    list-style: none;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 10px; /* For scrollbar spacing */
+}
+
+.laps-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.laps-list li:last-child {
+    border-bottom: none;
+}
+.lap-number {
+    color: var(--font-color-muted);
+}
+.lap-time {
+    font-family: var(--font-timer);
+    font-size: 1.1rem;
+}
+
+/* Custom Scrollbar */
+.laps-list::-webkit-scrollbar {
+    width: 6px;
+}
+.laps-list::-webkit-scrollbar-track {
+    background: var(--card-color);
+}
+.laps-list::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 10px;
+}
